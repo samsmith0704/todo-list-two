@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 
 const Todo = ({ text, done, handleClick, handleDelete }) => {
@@ -34,8 +34,8 @@ const Todo = ({ text, done, handleClick, handleDelete }) => {
   };
 
   const changeHoverTrash = () => {
-    setIsHoveredTrash(!ishoveredtrash)
-  }
+    setIsHoveredTrash(!ishoveredtrash);
+  };
 
   return (
     <div>
@@ -48,11 +48,12 @@ const Todo = ({ text, done, handleClick, handleDelete }) => {
         {text}
       </button>
 
-      <button 
-      onMouseEnter={changeHoverTrash}
-      onMouseLeave={changeHoverTrash}
-      
-      onClick={handleDelete} style={trashBtnStyle}>
+      <button
+        onMouseEnter={changeHoverTrash}
+        onMouseLeave={changeHoverTrash}
+        onClick={handleDelete}
+        style={trashBtnStyle}
+      >
         {" "}
         <BiTrash />
       </button>

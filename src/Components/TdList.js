@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Todo from "./Todo";
-import {BiTrash} from 'react-icons/bi'
 
 const TdList = () => {
   const [todos, setTodos] = useState([]);
+
+  //To do this with ids, create unique ids using state, increment the state id by one every time a todo is added
   //determine whether button should be disabled
   const [text, setText] = useState("");
   const [btncolor, setBtncolor] = useState("grey");
@@ -15,17 +16,17 @@ const TdList = () => {
   */
 
   //Either get the array of todos in local storage, or set the todos to a null array
-  useEffect(()=> {
+  useEffect(() => {
+    const parsedTodos =
+      JSON.parse(localStorage.getItem("todos")) || Array(10).fill(null);
 
-    const parsedTodos = (JSON.parse(localStorage.getItem('todos')) || Array(10).fill(null))
-
-    setTodos(parsedTodos)
-  }, [])
+    setTodos(parsedTodos);
+  }, []);
 
   //When the todos array changes, set the local storage to the new todo list
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos))
-  }, [todos, ])
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const btnStyle = {
     border: ".1px solid white",
@@ -35,8 +36,6 @@ const TdList = () => {
     color: "white",
   };
 
- 
-
   const addTodo = () => {
     //Could probably do this in a better way
     // const newTodo = <Todo text={document.getElementById("todo-input").value} />;
@@ -44,13 +43,11 @@ const TdList = () => {
     const newTodo = {
       text,
       done: false,
-
- 
     };
-    document.getElementById("todo-input").value= ""
-    setText("")
+    document.getElementById("todo-input").value = "";
+    setText("");
     setTodos([newTodo, ...todos]);
-    console.log(todos)
+    console.log(todos);
   };
 
   /* 
@@ -67,19 +64,17 @@ if the text is empty, button needs to be grey
     setText(document.getElementById("todo-input").value);
   };
 
-
   //DELETE WORKS!
   const handleDelete = (todoToDelete) => {
-    const newTodos = todos.filter(todo => {
-      return todoToDelete !== todo
-    })
-    setTodos(newTodos)
-  }
-
+    const newTodos = todos.filter((todo) => {
+      return todoToDelete !== todo;
+    });
+    setTodos(newTodos);
+  };
 
   const inputStyle = {
-    margin: '5px', 
-  }
+    margin: "5px",
+  };
   return (
     <div>
       <h1>TODO LIST</h1>
@@ -92,31 +87,25 @@ if the text is empty, button needs to be grey
       <button style={btnStyle} onClick={addTodo} disabled={!text}>
         ADD
       </button>
+
       <p>
         {" "}
         {todos.map((todo, i) => {
-          
           return (
-           
             <div>
               <Todo
-              text={todo.text}
-              done={todo.done}
+                text={todo.text}
+                done={todo.done}
+                handleClick={() => {
+                  //can use i because of closure
+                  const newTodos = [...todos];
+                  newTodos[i].done = !newTodos[i].done;
 
- 
-
-              handleClick={() => {
-                //can use i because of closure
-                const newTodos = [...todos];
-                newTodos[i].done = !newTodos[i].done;
-
-                setTodos(newTodos);
-              }}
-              handleDelete={() => handleDelete(todo)}
-            />
-            
+                  setTodos(newTodos);
+                }}
+                handleDelete={() => handleDelete(todo)}
+              />
             </div>
-           
           );
         })}{" "}
       </p>
