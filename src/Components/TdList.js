@@ -15,6 +15,21 @@ const TdList = () => {
   between page refreshes 
   */
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   //Either get the array of todos in local storage, or set the todos to a null array
   useEffect(() => {
     const parsedTodos =
@@ -43,6 +58,7 @@ const TdList = () => {
     const newTodo = {
       text,
       done: false,
+      date: new Date(),
     };
     document.getElementById("todo-input").value = "";
     setText("");
@@ -72,6 +88,14 @@ if the text is empty, button needs to be grey
     setTodos(newTodos);
   };
 
+  const populateDate = (date) => {
+    const day = date.getDay();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    return months[month] + day + ", " + year;
+  };
+
   const inputStyle = {
     margin: "5px",
   };
@@ -96,6 +120,13 @@ if the text is empty, button needs to be grey
               <Todo
                 text={todo.text}
                 done={todo.done}
+                date={
+                  String(months[todo.date.getMonth()]) +
+                  " " +
+                  String(todo.date.getDate()) +
+                  ", " +
+                  String(todo.date.getFullYear())
+                }
                 handleClick={() => {
                   //can use i because of closure
                   const newTodos = [...todos];

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 
-const Todo = ({ text, done, handleClick, handleDelete }) => {
+const Todo = ({ text, done, date, handleClick, handleDelete }) => {
   //   const [done, setDone] = useState(false);
   //   const[strike, setStrike] = useState('')
   const [ishovered, setIsHovered] = useState(false);
@@ -58,6 +58,7 @@ const Todo = ({ text, done, handleClick, handleDelete }) => {
         <BiTrash />
       </button>
 
+      <p>{date}</p>
       <br />
     </div>
   );
