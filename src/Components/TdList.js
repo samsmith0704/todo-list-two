@@ -2,13 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Todo from "./Todo";
 
+//Dont allow submission with spaces
+
 const TdList = () => {
   const [todos, setTodos] = useState([]);
 
   //To do this with ids, create unique ids using state, increment the state id by one every time a todo is added
   //determine whether button should be disabled
   const [text, setText] = useState("");
-  const [btncolor, setBtncolor] = useState("grey");
+  //const [btncolor, setBtncolor] = useState("grey");
 
   /* 
   The following two useEffects are meant to store the todos 
@@ -32,7 +34,7 @@ const TdList = () => {
     border: ".1px solid white",
     borderRadius: "5px",
     outline: "none",
-    backgroundColor: btncolor,
+    backgroundColor: text ? "Navy" : "grey",
     color: "white",
   };
 
@@ -44,27 +46,43 @@ const TdList = () => {
       text,
       done: false,
     };
-    document.getElementById("todo-input").value = "";
+
+    //find better way to do this, shouldn't have to use query selector
+    // document.getElementById("todo-input").value = "";
     setText("");
     setTodos([newTodo, ...todos]);
-    console.log(todos);
+    //console.log(todos);
   };
 
   /* 
 If user adds text, button changes to blue
 if the text is empty, button needs to be grey  
 */
-  useEffect(() => {
-    if (text) {
-      setBtncolor("Navy");
-    } else setBtncolor("grey");
-  }, [text]);
+  // useEffect(() => {
+  //   if (text) {
+  //     setBtncolor("Navy");
+  //   } else setBtncolor("grey");
+  // }, [text]);
 
-  const handleTextChange = () => {
-    setText(document.getElementById("todo-input").value);
+  const handleTextChange = (e) => {
+    // setText(document.getElementById("todo-input").value);
+    // in an onclick/onchange, js passes an event object as a parameter
+
+    //added .trim so that users cannot submit only spaces
+    if (!e.target.value.trim()) {
+      setText("");
+    } else {
+      setText(e.target.value);
+    }
   };
 
   //DELETE WORKS!
+  //filter is filtering by reference not by value
+  /* In react you cant mutate state because react only compares reference
+  looking for state updates by comparing by reference
+  */
+
+  //if you wanted to do this with ids, could use a 'ref' to persist variable between renders
   const handleDelete = (todoToDelete) => {
     const newTodos = todos.filter((todo) => {
       return todoToDelete !== todo;
@@ -83,6 +101,7 @@ if the text is empty, button needs to be grey
         id="todo-input"
         placeholder="add item..."
         onChange={handleTextChange}
+        value={text}
       ></input>
       <button style={btnStyle} onClick={addTodo} disabled={!text}>
         ADD
