@@ -108,7 +108,6 @@ if the text is empty, button needs to be grey
       </button>
 
       <p>
-        {" "}
         {todos.map((todo, i) => {
           return (
             <div>
@@ -126,10 +125,19 @@ if the text is empty, button needs to be grey
               />
             </div>
           );
-        })}{" "}
+        })}
       </p>
     </div>
   );
 };
 
+//WHat is the use of keys in react? How to make use of them?
+// put them in whenever you map over, used in the 'diffing' engine for comparing state
+//keys are specific to react, the way that react analyzes the state
+
+//Dive deeper into JSX
+//create a function create element like react does
+//put jsx into babel transpiler to visualize
+
+//webpack bundles your files into one file, configure webpack to use babel
 export default TdList;
