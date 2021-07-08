@@ -131,13 +131,20 @@ if the text is empty, button needs to be grey
   );
 };
 
+/* KEYS NOTES */
 //WHat is the use of keys in react? How to make use of them?
 // put them in whenever you map over, used in the 'diffing' engine for comparing state
-//keys are specific to react, the way that react analyzes the state
+//keys are specific to react, the way that react analyzes the state, key helps it uniquely identify a component
+//not a good idea to choose key based on index, indices could change
+//"The developer can hint at which child elements may be stable across different renders with a key prop"
+// When children have keys, React uses the key to match children in the original tree with children in the subsequent tree
 
-//Dive deeper into JSX
-//create a function create element like react does
+//Dive deeper into JSX, not sure why my original definition was wrong
+//create a function create element like react does (TODO )
+
 //put jsx into babel transpiler to visualize
+//Basically, babel converts JSX into statements like "React.createElement('div', null, text)"
+//Check out an online babel compiler to see it
 
 //webpack bundles your files into one file, configure webpack to use babel
 export default TdList;
