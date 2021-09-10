@@ -112,8 +112,8 @@ if the text is empty, button needs to be grey
           return (
             <div>
               <Todo
-                text={todo.text ? todo.text : null}
-                done={todo.done ? todo.done : false}
+                text={todo ? todo.text : null}
+                done={todo ? todo.done : null}
                 handleClick={() => {
                   //can use i because of closure
                   const newTodos = [...todos];
