@@ -108,24 +108,25 @@ if the text is empty, button needs to be grey
       </button>
 
       <p>
-        {todos.map((todo, i) => {
-          return (
-            <div>
-              <Todo
-                text={todo ? todo.text : null}
-                done={todo ? todo.done : null}
-                handleClick={() => {
-                  //can use i because of closure
-                  const newTodos = [...todos];
-                  newTodos[i].done = !newTodos[i].done;
+        {todos.length > 0 &&
+          todos.map((todo, i) => {
+            return (
+              <div>
+                <Todo
+                  text={todo.text}
+                  done={todo.done}
+                  handleClick={() => {
+                    //can use i because of closure
+                    const newTodos = [...todos];
+                    newTodos[i].done = !newTodos[i].done;
 
-                  setTodos(newTodos);
-                }}
-                handleDelete={() => handleDelete(todo)}
-              />
-            </div>
-          );
-        })}
+                    setTodos(newTodos);
+                  }}
+                  handleDelete={() => handleDelete(todo)}
+                />
+              </div>
+            );
+          })}
       </p>
     </div>
   );
